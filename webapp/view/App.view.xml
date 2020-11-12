@@ -1,10 +1,18 @@
-<mvc:View 
-	controllerName="logaligroup.SAPUI5.controller.App"
-	xmlns="sap.m" 
-	xmlns:mvc="sap.ui.core.mvc">
-	<Button text="Say Hello" press=".OnShowHello"/>
-	<Input value="{/recipient/name}"
-	       description="Hello {/recipient/name}"
-	       valueLiveUpdate="true"
-	       width="60%"/>
+<mvc:View controllerName="logaligroup.SAPUI5.controller.App" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns:core="sap.ui.core">
+	<Shell>
+		<App class="myCustomCss">
+			<pages>
+				<Page title="{i18n>homePageTitle}">
+					<headerContent>
+						<Button id="helloDialogHeader" icon="sap-icon://world" press=".OnOpenHeader" class="sapUiSmallMarginEnd"/>
+					</headerContent>
+					<content>
+						<mvc:XMLView viewName="logaligroup.SAPUI5.view.HelloPanel"/>
+						<mvc:XMLView viewName="logaligroup.SAPUI5.view.InvoiceList"/>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
 </mvc:View>

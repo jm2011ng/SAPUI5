@@ -1,37 +1,44 @@
 sap.ui.define([
-		"sap/ui/core/UIComponent",
-		"logaligroup/SAPUI5/model/models",
-		"sap/ui/model/resource/ResourceModel"
-	], function (UIComponent, models, ResourceModel) {
+	"sap/ui/core/UIComponent",
+	"logaligroup/SAPUI5/model/models",
+	"sap/ui/model/resource/ResourceModel",
+	"./controller/	HelloDialog"
+], function (UIComponent, models, ResourceModel, HelloDialog) {
 
-		return UIComponent.extend("logaligroup.SAPUI5.Components", {
-			
-			
-			metadata:{
-				manifest : "json"
-			},
+	return UIComponent.extend("logaligroup.SAPUI5.Components", {
 
-			init: function () {
+		metadata: {
+			manifest: "json"
+		},
 
-				// call the init function of the parent
+		init: function () {
 
-				UIComponent.prototype.init.apply(this, arguments);
+			// call the init function of the parent
 
-				//set model on view
-				this.setModel(models.createRecipient());
+			UIComponent.prototype.init.apply(this, arguments);
 
-				//set i18n on model view
-				var i18nModel = new ResourceModel({
-					bundleName: "logaligroup.SAPUI5.i18n.i18n"
+			//set model on view
+			this.setModel(models.createRecipient());
 
-				});
+			//set i18n on model view
+			var i18nModel = new ResourceModel({
+				bundleName: "logaligroup.SAPUI5.i18n.i18n"
 
-				this.setModel(i18nModel, "i18n");
+			});
 
-			}
+			this.setModel(i18nModel, "i18n");
 
-		});
+			this._helloDialog = new HelloDialog(this.getRootControl());
 
-	}
+		},
 
-);
+		exit: function () {
+			this._helloDialog.destroy();
+			delete this._helloDialog;
+		},
+
+		openHelloDialog: function () {
+			this._helloDialog.open();
+		}
+	});
+});

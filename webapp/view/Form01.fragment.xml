@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Panel headerText="{i18n>panelFrTitle}" class="sapUiResponsiveMargin" width="auto">
+		<content>
+			<Label text="{i18n>labelPerson}" class="sapUiSmallMargin" labelFor="persName"/>
+			<Input id="persName" width="30%"/>
+		</content>
+	</Panel>
+</core:FragmentDefinition>
