@@ -1,42 +1,47 @@
-<mvc:View 
-	controllerName="logaligroup.SAPUI5.controller.InvoiceList"
-	xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
-	<List id="invoiceList" headerText="{i18n>InvoiceListTitle}" class="sapUiResponseMargin" width="auto" 
-	items="{
-			path: 'invoices>/Invoices',
-			sorter : {
-				path : 'ProductName'
-			}
-			}">
+<mvc:View controllerName="logaligroup.SAPUI5.controller.InvoiceList" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
+	<Panel accessibleRole="Region">
 		<headerToolbar>
 			<Toolbar>
 				<Title text="{i18n>InvoiceListTitle}"/>
 				<ToolbarSpacer/>
-				<SearchField width="50%" search=".OnFilterInvoices"/>
-					
+				<SearchField width="50%" search=".OnFilterInvoices"
+				ariaLabelledBy="searchFieldLabel"
+				ariaDescribedBy="searchFieldDescription"
+				placeholder="{i18n>searchFieldPlaceHolder}"/>
 			</Toolbar>
-			
-			
 		</headerToolbar>
-		<items>
-			<ObjectListItem title="{invoices>Quantity} x {invoices>ProductName} "
-							 number="{
-									 parts:[{path: 'invoices>ExtendedPrice'}, {path: 'view>/currency'}], 
-									 type: 'sap.ui.model.type.Currency',
-									 formatOptions:{
-										showMeasure: false
-									 }
-							 
-							 }"
-							 numberUnit="{view>/currency}"
-				numberState="{= ${invoices>ExtendedPrice} > 50 ? 'Error' : 'Success' }">
-				<firstStatus>
-					<ObjectStatus text="{
-					path:  'invoices>Status',
-					formatter : '.formatter.statusText'
-					}"/>
-				</firstStatus>
-			</ObjectListItem>
-		</items>
-	</List>
+		<Table id="invoiceList" class="sapUiResponseMargin" width="auto"
+			items="{ path: 'invoices>/Invoices', sorter : { path : 'ShipperName', group : true } }">
+			<columns>
+				<Column hAlign="End" minScreenWidth="Small" demandPopin="true" width="5em">
+					<Text text="{i18n>columnQuantity}"/>
+				</Column>
+				<Column>
+					<Text text="{i18n>columName}"/>
+				</Column>
+				<Column minScreenWidth="Small" demandPopin="true">
+					<Text text="{i18n>columStatus}"/>
+				</Column>
+				<Column minScreenWidth="Tablet" demandPopin="false">
+					<Text text="{i18n>columSupplier}"/>
+				</Column>
+				<Column hAlign="End">
+					<Text text="{i18n>columPrice}"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem type="Navigation" press=".onPress">
+					<cells>
+						<ObjectNumber number="{invoices>Quantity}" emphasized="false"/>
+						<ObjectIdentifier title="{invoices>ProductName}"/>
+						<Text text="{ path: 'invoices>Status', formatter : '.formatter.statusText' }"/>
+						<Text text="{invoices>ShipperName}"/>
+						<ObjectNumber
+							number="{ parts:[{path: 'invoices>ExtendedPrice'}, {path: 'view>/currency'}], type: 'sap.ui.model.type.Currency', formatOptions:{ showMeasure: false } }"
+							unit="{view>/currency}" state="{= ${invoices>ExtendedPrice} > 50 ? 'Error' : 'Success' }"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Panel>
 </mvc:View>

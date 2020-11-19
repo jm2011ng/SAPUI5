@@ -1,0 +1,20 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" displayBlock="true"
+	controllerName="logaligroup.SAPUI5.controller.Detail" xmlns:lp="logaligroup.SAPUI5.control">
+	<Page title="{i18n>detailPageTittle}" showNavButton="true" navButtonPress="onNavBack">
+		<ObjectHeader 
+		responsive="true"
+		fullScreenOptimized="true"
+		intro="{invoices>ShipperName}" 
+		title="{invoices>ProductName}"
+		number="{ 
+		         parts:[{path: 'invoices>ExtendedPrice'}, {path: 'view>/currency'}], 
+		         type: 'sap.ui.model.type.Currency', 
+		         formatOptions:{ showMeasure: false } }"
+		         numberUnit="{view>/currency}">
+		<attributes>
+			<ObjectAttribute title="{i18n>quantityTitle}" text="{invoices>Quantity}"></ObjectAttribute>
+		</attributes>		
+		</ObjectHeader>
+		<lp:ProductRating id="rating" class="sapUiSmallMarginBeginEnd" change=".OnRatingChange"/>
+	</Page>
+</mvc:View>

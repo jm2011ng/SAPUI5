@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/base/ManagedObject",
-	"sap/ui/core/Fragment"
+	"sap/ui/core/Fragment",
+	"sap/ui/core/syncStyleClass"
 
-], function (ManagedObject, Fragment) {
+], function (ManagedObject, Fragment, syncStyleClass) {
 
 	return ManagedObject.extend("logaligroup.SAPUI5.controller.HelloDialog", {
 
@@ -36,6 +37,7 @@ sap.ui.define([
 				}).then(function (oDialog) {
 
 					oView.addDependent(oDialog);
+					syncStyleClass(oView.getController().getOwnerComponent().getContentDensityClass(), oView, oDialog );
 					oDialog.open();
 				});
 			} else {
